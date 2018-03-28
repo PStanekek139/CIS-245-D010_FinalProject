@@ -30,12 +30,9 @@ class CurrentListActivity : AppCompatActivity() {
         val currentList = lookupList()
 
 
-       // currentList.forEach {
-
-        //}
 
 
-        //not working:
+        //initialize current list
         init(currentList)
 
         //val adapter = ArrayAdapter<ListEntry>(this, android.R.layout.simple_list_item_1,currentList)
@@ -77,7 +74,7 @@ class CurrentListActivity : AppCompatActivity() {
         return returnedList
     }
 
-    //display list (not working)
+    //display list
     fun init(list : MutableList<ListEntry>){
         //bind header table layout
         val tHeader = findViewById<TableLayout>(R.id.tHeader)
@@ -152,8 +149,7 @@ class CurrentListActivity : AppCompatActivity() {
         list.forEach{
             tr = TableRow(this)
             tr.setLayoutParams(lp)
-
-
+            tr.tag = it.id.toString()
 
             //add id
             txtid = TextView(this)
@@ -166,6 +162,7 @@ class CurrentListActivity : AppCompatActivity() {
             txtname = TextView(this)
             txtname.text = it.entryName.toString()
             txtname.textSize = 14f
+            txtname.tag = "N" + it.id.toString()
             txtname.setPadding(3, 3, 0, 3)
             tr.addView(txtname)
 
@@ -187,17 +184,27 @@ class CurrentListActivity : AppCompatActivity() {
 
             //add purchase button
             btnpurchase = Button(this)
-            btnpurchase.id = it.id
-            btnpurchase.text = "PURCHASE" + btnpurchase.id.toString()
+            btnpurchase.id = it.id;
+            btnpurchase.text = "PURCHASE"
             btnpurchase.textSize = 10f
+            btnpurchase.tag = "P" + it.id.toString();
             btnpurchase.width = 20
             btnpurchase.height = TableRow.LayoutParams.WRAP_CONTENT
             tr.addView(btnpurchase)
 
-            val btnP = tr.findViewById<Button>(it.id);
+            //on-click code for Purchase buttons
+            val btnP = tr.findViewWithTag<Button>("P" + it.id.toString());
             btnP.setOnClickListener(){
                 val myID = btnP.id;
-                Toast.makeText(this, "Purchase: " + myID.toString(), Toast.LENGTH_LONG).show()
+                val dbHandler = DBHelper(this, null, null, 1)
+                //add to history list and delete from current list
+
+                //val success = dbHandler.deleteCurrentListEntry(myID);
+                val ll = findViewById<TableLayout>(R.id.t1)
+                val myRow = ll.findViewWithTag<TableRow>(myID.toString())
+                val tv = myRow.findViewWithTag<TextView>("N" + myID.toString())
+                Toast.makeText(this, "Item Purchased: " + tv.text.toString(), Toast.LENGTH_LONG).show()
+                ll.removeView(myRow)
             }
 
             //add remove button
@@ -205,9 +212,24 @@ class CurrentListActivity : AppCompatActivity() {
             btnremove.text = "REMOVE"
             btnremove.id = it.id
             btnremove.textSize = 10f
+            btnremove.tag = "R" + it.id.toString();
             btnremove.width = 20
             btnremove.height = TableRow.LayoutParams.WRAP_CONTENT
             tr.addView(btnremove)
+
+            //on-click code for Remove buttons
+            val btnR = tr.findViewWithTag<Button>("R" + it.id.toString());
+            btnR.setOnClickListener(){
+                val myID = btnR.id;
+                val dbHandler = DBHelper(this, null, null, 1)
+                val success = dbHandler.deleteCurrentListEntry(myID);
+                val ll = findViewById<TableLayout>(R.id.t1)
+                val myRow = ll.findViewWithTag<TableRow>(myID.toString())
+                val tv = myRow.findViewWithTag<TextView>("N" + myID.toString())
+                Toast.makeText(this, "Item Removed: " + tv.text.toString(), Toast.LENGTH_LONG).show()
+                ll.removeView(myRow)
+            }
+
 
             ll.addView(tr,counter)
             counter++
