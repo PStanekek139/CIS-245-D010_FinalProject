@@ -192,13 +192,13 @@ class CurrentListActivity : AppCompatActivity() {
             btnpurchase.textSize = 10f
             btnpurchase.width = 20
             btnpurchase.height = TableRow.LayoutParams.WRAP_CONTENT
-            btnpurchase.setOnClickListener{
-                //need to somehow get ID
-                
-                //val myID = this.getID()
-                //Toast.makeText(this, "Purchase: " + myID.toString(), Toast.LENGTH_LONG).show()
-            }
             tr.addView(btnpurchase)
+
+            val btnP = tr.findViewById<Button>(it.id);
+            btnP.setOnClickListener(){
+                val myID = btnP.id;
+                Toast.makeText(this, "Purchase: " + myID.toString(), Toast.LENGTH_LONG).show()
+            }
 
             //add remove button
             btnremove = Button (this)
