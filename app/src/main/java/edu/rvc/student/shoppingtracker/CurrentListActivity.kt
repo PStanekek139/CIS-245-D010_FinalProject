@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import kotlinx.android.synthetic.main.activity_current_list.*
+import android.content.Context
+import android.view.inputmethod.InputMethodManager
 
 class CurrentListActivity : AppCompatActivity() {
 
@@ -16,53 +18,65 @@ class CurrentListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_current_list)
 
+        val btnAdd = findViewById<Button>(R.id.btnAddNew)
+        val txtNewName = findViewById<EditText>(R.id.txtNewName)
+        val txtNewQty = findViewById<EditText>(R.id.txtNewQty)
+        var success = false
 
-
-        //bind text view used for testing
-        val txtTest = findViewById<TextView>(R.id.txtTestList)
-
-        //bind table layout
-        val ll = findViewById<TableLayout>(R.id.t1)
-
-        txtTest.text = ""
 
         //retrieve current list of entries
         val currentList = lookupList()
 
-
-
-
-        //initialize current list
+        //initialize (display) current list
         init(currentList)
 
-        //val adapter = ArrayAdapter<ListEntry>(this, android.R.layout.simple_list_item_1,currentList)
 
-        var entry = ListEntry(0,"",0,0f)
-        currentList.forEach{
-            //add to test text view at bottom
-            txtTest.text = txtTest.text.toString() + "\n" + "Item: " + it.entryName
+        btnAdd.setOnClickListener{
+            //validate data
+            if (txtNewName.text.toString() == ""){
+                Toast.makeText(this, "Item Name Needed", Toast.LENGTH_LONG).show()
+            } else if (txtNewQty.text.toString().toIntOrNull() !is Int){
+                Toast.makeText(this, "Qty must be a whole number", Toast.LENGTH_LONG).show()
+            } else if (txtNewName.text.toString().length > 24){
+                Toast.makeText(this, "Item Name too long (24 char max)", Toast.LENGTH_LONG).show()
+            } else   {
+                //add to database - current list
+                val dbHandler = DBHelper(this, null, null, 1)
+                val newEntry = ListEntry(txtNewName.text.toString(), txtNewQty.text.toString().toInt(), 0.0f)
+                val success = dbHandler.addCurrentListEntry(newEntry)
+
+                //refresh table
+                val currentList = lookupList()
+                init(currentList)
+
+                //display success message
+                txtNewName.setText("")
+                txtNewQty.setText("")
+                hideKeyboard()
+                Toast.makeText(this, "Item Added", Toast.LENGTH_LONG).show()
+            }
+
+
+
+
+
+
+
         }
-
 
 
 
     }
 
-    //old test function that just displayed first item returned
-    //fun lookupTest(): String {
-    //    val dbHandler = DBHelper(this, null, null, 1)
+    fun hideKeyboard() {
+        try {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        } catch (e: Exception) {
+            // TODO: handle exception
+        }
 
-    //    val entry = dbHandler.testCurrentListEntry()
-    //    var result = ""
-
-    //    if (entry != null) {
-    //        result = entry.entryName.toString()
-
-    //    } else {
-    //        result = "No Items Found!"
-    //    }
-    //    return result
-    //}
+    }
 
     //returns list of all current list entries
     fun lookupList() : MutableList<ListEntry>{
@@ -80,6 +94,9 @@ class CurrentListActivity : AppCompatActivity() {
         val tHeader = findViewById<TableLayout>(R.id.tHeader)
         //bind table layout
         val ll = findViewById<TableLayout>(R.id.t1)
+
+        //clear any existing rows in table
+        ll.removeAllViews()
 
         //variables for dynamic table content
         var tr = TableRow(this)
@@ -162,13 +179,15 @@ class CurrentListActivity : AppCompatActivity() {
             txtname = TextView(this)
             txtname.text = it.entryName.toString()
             txtname.textSize = 14f
-            txtname.tag = "N" + it.id.toString()
-            txtname.setPadding(3, 3, 0, 3)
+            txtname.width = 100
+            txtname.tag = "NAME" + it.id.toString()
+            txtname.setPadding(3, 0, 0, 15)
             tr.addView(txtname)
 
             //add qty field
             txtqty = EditText(this)
             txtqty.hint = "QTY"
+            txtqty.tag = "QTY" + it.id.toString()
             txtqty.setText(it.quantity.toString())
             txtqty.textSize = 12f
             txtqty.setPadding(3, 3, 0, 3)
@@ -177,6 +196,7 @@ class CurrentListActivity : AppCompatActivity() {
             //add price field
             txtprice = EditText(this)
             txtprice.hint = "PRICE"
+            txtprice.tag = "PRICE" + it.id.toString()
             txtprice.setText(it.price.toString())
             txtprice.textSize = 12f
             txtprice.setPadding(3, 3, 3, 3)
@@ -194,17 +214,39 @@ class CurrentListActivity : AppCompatActivity() {
 
             //on-click code for Purchase buttons
             val btnP = tr.findViewWithTag<Button>("P" + it.id.toString());
+            val name = tr.findViewWithTag<TextView>("NAME" + it.id.toString())
+            val qty = tr.findViewWithTag<EditText>("QTY" + it.id.toString())
+            val price = tr.findViewWithTag<EditText>("PRICE" + it.id.toString())
             btnP.setOnClickListener(){
                 val myID = btnP.id;
-                val dbHandler = DBHelper(this, null, null, 1)
-                //add to history list and delete from current list
 
-                //val success = dbHandler.deleteCurrentListEntry(myID);
-                val ll = findViewById<TableLayout>(R.id.t1)
-                val myRow = ll.findViewWithTag<TableRow>(myID.toString())
-                val tv = myRow.findViewWithTag<TextView>("N" + myID.toString())
-                Toast.makeText(this, "Item Purchased: " + tv.text.toString(), Toast.LENGTH_LONG).show()
-                ll.removeView(myRow)
+                //data validation
+                if (qty.text.toString().toIntOrNull() !is Int){
+                    Toast.makeText(this, "Qty must be a whole number", Toast.LENGTH_LONG).show()
+                } else if (price.text.toString().toFloatOrNull() !is Float){
+                    Toast.makeText(this, "Price must be a valid number", Toast.LENGTH_LONG).show()
+                } else {
+                    //if both valid, process request
+                    val nameString = name.text.toString()
+                    val qtyInt = qty.text.toString().toInt()
+                    val priceFloat = price.text.toString().toFloat()
+                    val dbHandler = DBHelper(this, null, null, 1)
+
+                    //add to history list
+                    //create new ListEntry
+                    val newEntry = ListEntry(nameString, qtyInt, priceFloat)
+                    val successAdd = dbHandler.addHistoryListEntry(newEntry)
+
+                    //delete from current list
+                    val successDelete = dbHandler.deleteCurrentListEntry(myID);
+
+                    //display confirmation and remove row from displayed current list
+                    val ll = findViewById<TableLayout>(R.id.t1)
+                    val myRow = ll.findViewWithTag<TableRow>(myID.toString())
+                    val tv = myRow.findViewWithTag<TextView>("NAME" + myID.toString())
+                    Toast.makeText(this, "Item Purchased: " + tv.text.toString(), Toast.LENGTH_LONG).show()
+                    ll.removeView(myRow)
+                }
             }
 
             //add remove button
@@ -225,7 +267,7 @@ class CurrentListActivity : AppCompatActivity() {
                 val success = dbHandler.deleteCurrentListEntry(myID);
                 val ll = findViewById<TableLayout>(R.id.t1)
                 val myRow = ll.findViewWithTag<TableRow>(myID.toString())
-                val tv = myRow.findViewWithTag<TextView>("N" + myID.toString())
+                val tv = myRow.findViewWithTag<TextView>("NAME" + myID.toString())
                 Toast.makeText(this, "Item Removed: " + tv.text.toString(), Toast.LENGTH_LONG).show()
                 ll.removeView(myRow)
             }
@@ -236,10 +278,6 @@ class CurrentListActivity : AppCompatActivity() {
         }
     }
 
-    //add to purchase history & remove from current list
-    fun purchase (id: Int) {
-
-    }
 
 
 }

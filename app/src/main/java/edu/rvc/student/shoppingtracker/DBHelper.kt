@@ -8,6 +8,9 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.content.Context
 import android.content.ContentValues
+import java.text.DateFormat
+import java.time.LocalDateTime
+import java.text.SimpleDateFormat
 
 class DBHelper(context: Context, name: String?,
                factory: SQLiteDatabase.CursorFactory?, version: Int) :
@@ -30,7 +33,7 @@ class DBHelper(context: Context, name: String?,
                 + COLUMN_ID + " INTEGER PRIMARY KEY," +
                 COLUMN_ENTRYNAME
                 + " TEXT," + COLUMN_QUANTITY + " INTEGER," +
-                COLUMN_PRICE + " REAL" + ")")
+                COLUMN_PRICE + " REAL," + COLUMN_PURCHASEDATE + " TEXT)")
         db.execSQL(CREATE_HISTORY_TABLE)
     }
 
@@ -50,6 +53,8 @@ class DBHelper(context: Context, name: String?,
         val COLUMN_ENTRYNAME = "entryname"
         val COLUMN_QUANTITY = "quantity"
         val COLUMN_PRICE = "price"
+        val COLUMN_PURCHASEDATE = "purchasedate"
+
     }
 
     //add to CurrentList
@@ -127,6 +132,8 @@ class DBHelper(context: Context, name: String?,
         values.put(COLUMN_ENTRYNAME, listentry.entryName)
         values.put(COLUMN_QUANTITY, listentry.quantity)
         values.put(COLUMN_PRICE, listentry.price)
+        values.put(COLUMN_PURCHASEDATE, DateFormat.getDateTimeInstance().toString())
+
 
         val db = this.writableDatabase
 

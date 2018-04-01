@@ -8,6 +8,7 @@ class ListEntry {
     var entryName: String? = null
     var quantity: Int = 0
     var price: Float = 0f
+    var purchasedate: String? = null
 
     constructor(id: Int, entryname: String, quantity: Int, price: Float) {
         this.id = id
@@ -20,5 +21,13 @@ class ListEntry {
         this.entryName = entryname
         this.quantity = quantity
         this.price = price
+    }
+
+    constructor(id: Int, entryname: String, quantity: Int, price: Float, purchasedate: String) {
+        this.id = id
+        this.entryName = entryname
+        this.quantity = quantity
+        this.price = price
+        this.purchasedate = purchasedate
     }
 }
