@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.content.Context
 import android.content.ContentValues
+import java.lang.System.currentTimeMillis
 import java.text.DateFormat
 import java.time.LocalDateTime
 import java.text.SimpleDateFormat
@@ -90,6 +91,32 @@ class DBHelper(context: Context, name: String?,
         }
         return result
     }
+
+    fun getHistoryList():MutableList<ListEntry>{
+        var entry = ListEntry(0,"SKIP", 0, 0f, "NEVER")
+        var result: MutableList<ListEntry> = mutableListOf(entry)
+
+        val query = "SELECT $COLUMN_ENTRYNAME, SUM($COLUMN_QUANTITY), AVG($COLUMN_PRICE), MAX($COLUMN_PURCHASEDATE)" +
+                " FROM $TABLE_HISTORYLIST  GROUP BY $COLUMN_ENTRYNAME ORDER BY $COLUMN_ENTRYNAME"
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(query, null)
+        if (cursor.moveToFirst()){
+            cursor.moveToFirst()
+            entry = ListEntry(0,cursor.getString(0), Integer.parseInt(cursor.getString(1)), cursor.getFloat(2), cursor.getString(3))
+            result.add(entry)
+            while (cursor.moveToNext()){
+                entry = ListEntry(0,cursor.getString(0), Integer.parseInt(cursor.getString(1)), cursor.getFloat(2), cursor.getString(3))
+                result.add(entry)
+            }
+        }
+
+        return result
+
+    }
+
+
+
+
     //return first item in CurrentList (for testing purposes)
     fun testCurrentListEntry():ListEntry?{
         val query = "SELECT * FROM $TABLE_CURRENTLIST"
@@ -132,7 +159,10 @@ class DBHelper(context: Context, name: String?,
         values.put(COLUMN_ENTRYNAME, listentry.entryName)
         values.put(COLUMN_QUANTITY, listentry.quantity)
         values.put(COLUMN_PRICE, listentry.price)
-        values.put(COLUMN_PURCHASEDATE, DateFormat.getDateTimeInstance().toString())
+        var thisTime = currentTimeMillis()
+        values.put(COLUMN_PURCHASEDATE, DateFormat.getDateInstance().format(thisTime).toString())
+
+
 
 
         val db = this.writableDatabase

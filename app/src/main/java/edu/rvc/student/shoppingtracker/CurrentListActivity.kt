@@ -10,6 +10,13 @@ import android.widget.*
 import kotlinx.android.synthetic.main.activity_current_list.*
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
+import android.util.DisplayMetrics
+import android.widget.LinearLayout
+import android.R.attr.button
+
+
+
+
 
 class CurrentListActivity : AppCompatActivity() {
 
@@ -128,28 +135,31 @@ class CurrentListActivity : AppCompatActivity() {
         txtid = TextView(this)
         txtid.text = "Item"
         txtid.textSize = 14f
-        txtid.setPadding(10, 3, 50, 3)
+        txtid.width = 100
+        txtid.setPadding(3, 3, 6, 3)
         tr.addView(txtid)
 
         //add qty label
         txtid = TextView(this)
         txtid.text = "QTY"
         txtid.textSize = 14f
-        txtid.setPadding(3, 3, 10, 3)
+        txtid.width = 60
+        txtid.setPadding(3, 3, 0, 3)
         tr.addView(txtid)
 
         //add price label
         txtid = TextView(this)
         txtid.text = "Price"
         txtid.textSize = 14f
-        txtid.setPadding(3, 3, 10, 3)
+        txtid.width = 60
+        txtid.setPadding(3, 3, 3, 3)
         tr.addView(txtid)
 
         //add purchase label
         txtid = TextView(this)
         txtid.text = "  Purchase"
         txtid.textSize = 14f
-        txtid.setPadding(3, 3, 10, 3)
+        txtid.setPadding(3, 3, 30, 3)
         tr.addView(txtid)
 
         //add Remove label
@@ -161,6 +171,11 @@ class CurrentListActivity : AppCompatActivity() {
 
         //add row to table
         tHeader.addView(tr,0)
+
+        //get full width of display
+        //val dm = DisplayMetrics()
+        //this.window.windowManager.defaultDisplay.getMetrics(dm)
+        //val fullWidth = dm.widthPixels
 
         //dynamically create a row for each current list entry
         list.forEach{
@@ -181,7 +196,7 @@ class CurrentListActivity : AppCompatActivity() {
             txtname.textSize = 14f
             txtname.width = 100
             txtname.tag = "NAME" + it.id.toString()
-            txtname.setPadding(3, 0, 0, 15)
+            txtname.setPadding(3, 0, 6, 15)
             tr.addView(txtname)
 
             //add qty field
@@ -190,6 +205,8 @@ class CurrentListActivity : AppCompatActivity() {
             txtqty.tag = "QTY" + it.id.toString()
             txtqty.setText(it.quantity.toString())
             txtqty.textSize = 12f
+            txtqty.width = 60
+            txtqty.height = 50
             txtqty.setPadding(3, 3, 0, 3)
             tr.addView(txtqty)
 
@@ -200,6 +217,8 @@ class CurrentListActivity : AppCompatActivity() {
             txtprice.setText(it.price.toString())
             txtprice.textSize = 12f
             txtprice.setPadding(3, 3, 3, 3)
+            txtprice.width = 60
+            txtprice.height = 50
             tr.addView(txtprice)
 
             //add purchase button
@@ -209,6 +228,7 @@ class CurrentListActivity : AppCompatActivity() {
             btnpurchase.textSize = 10f
             btnpurchase.tag = "P" + it.id.toString();
             btnpurchase.width = 20
+
             btnpurchase.height = TableRow.LayoutParams.WRAP_CONTENT
             tr.addView(btnpurchase)
 
@@ -275,7 +295,7 @@ class CurrentListActivity : AppCompatActivity() {
 
             ll.addView(tr,counter)
             counter++
-        }
+        } //end foreach
     }
 
 
