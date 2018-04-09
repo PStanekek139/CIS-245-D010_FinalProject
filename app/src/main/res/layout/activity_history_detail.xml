@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.rvc.student.shoppingtracker.CurrentListActivity"
-    tools:layout_editor_absoluteY="81dp">
+    tools:context=".HistoryDetail">
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="Current List"
+        android:text="History Detail"
         android:textSize="30dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
@@ -20,11 +19,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <ScrollView
         android:id="@+id/scrollView2"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="104dp"
+        android:layout_marginBottom="10dp"
         android:layout_weight="1"
         android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -57,48 +57,6 @@
         </LinearLayout>
     </ScrollView>
 
-
-
-    <EditText
-        android:id="@+id/txtNewName"
-        android:layout_width="303dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:ems="10"
-        android:hint="New Item (max 24 char)"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/btnAddNew"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.382"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
-
-    <EditText
-        android:id="@+id/txtNewQty"
-        android:layout_width="94dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="9dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:ems="10"
-        android:hint="Qty"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnAddNew"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/btnAddNew"
-        android:layout_width="176dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="9dp"
-        android:layout_marginEnd="16dp"
-        android:text="Add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/txtNewQty" />
 
 
 </android.support.constraint.ConstraintLayout>

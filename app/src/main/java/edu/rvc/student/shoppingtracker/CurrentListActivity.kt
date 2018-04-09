@@ -97,8 +97,13 @@ class CurrentListActivity : AppCompatActivity() {
 
     //display list
     fun init(list : MutableList<ListEntry>){
+        //get screen dimensions
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val screenWidth = displayMetrics.widthPixels
+
         //bind header table layout
-        val tHeader = findViewById<TableLayout>(R.id.tHeader)
+        //val tHeader = findViewById<TableLayout>(R.id.tHeader)
         //bind table layout
         val ll = findViewById<TableLayout>(R.id.t1)
 
@@ -134,48 +139,51 @@ class CurrentListActivity : AppCompatActivity() {
         //add name label
         txtid = TextView(this)
         txtid.text = "Item"
-        txtid.textSize = 14f
-        txtid.width = 100
+        txtid.textSize = 10f
+        txtid.width = screenWidth / 4
+        //txtid.width = 100
         txtid.setPadding(3, 3, 6, 3)
         tr.addView(txtid)
 
         //add qty label
         txtid = TextView(this)
         txtid.text = "QTY"
-        txtid.textSize = 14f
-        txtid.width = 60
+        txtid.textSize = 10f
+        txtid.width = screenWidth / 8
+        //txtid.width = 60
         txtid.setPadding(3, 3, 0, 3)
         tr.addView(txtid)
 
         //add price label
         txtid = TextView(this)
-        txtid.text = "Price"
-        txtid.textSize = 14f
-        txtid.width = 60
-        txtid.setPadding(3, 3, 3, 3)
+        txtid.text = "Price (each)"
+        txtid.textSize = 10f
+        txtid.width = screenWidth / 8
+        //txtid.width = 60
+        //txtid.height = 60
+        txtid.setPadding(3, 3, 3, 0)
         tr.addView(txtid)
 
         //add purchase label
         txtid = TextView(this)
-        txtid.text = "  Purchase"
-        txtid.textSize = 14f
+        txtid.text = "Purchase"
+        txtid.width = screenWidth / 5
+        txtid.textSize = 10f
         txtid.setPadding(3, 3, 30, 3)
         tr.addView(txtid)
 
         //add Remove label
         txtid = TextView(this)
-        txtid.text = "  Remove"
-        txtid.textSize = 14f
+        txtid.text = "Remove"
+        txtid.width = screenWidth / 5
+        txtid.textSize = 10f
         txtid.setPadding(3, 3, 10, 3)
         tr.addView(txtid)
 
         //add row to table
-        tHeader.addView(tr,0)
-
-        //get full width of display
-        //val dm = DisplayMetrics()
-        //this.window.windowManager.defaultDisplay.getMetrics(dm)
-        //val fullWidth = dm.widthPixels
+        ll.addView(tr,0)
+        //tHeader.addView(tr,0)
+        counter++
 
         //dynamically create a row for each current list entry
         list.forEach{
@@ -193,8 +201,9 @@ class CurrentListActivity : AppCompatActivity() {
             //add entry name
             txtname = TextView(this)
             txtname.text = it.entryName.toString()
-            txtname.textSize = 14f
-            txtname.width = 100
+            txtname.textSize = 10f
+            txtname.width = screenWidth / 4
+            //txtname.width = 100
             txtname.tag = "NAME" + it.id.toString()
             txtname.setPadding(3, 0, 6, 15)
             tr.addView(txtname)
@@ -204,9 +213,10 @@ class CurrentListActivity : AppCompatActivity() {
             txtqty.hint = "QTY"
             txtqty.tag = "QTY" + it.id.toString()
             txtqty.setText(it.quantity.toString())
-            txtqty.textSize = 12f
-            txtqty.width = 60
-            txtqty.height = 50
+            txtqty.textSize = 10f
+            txtqty.width = screenWidth / 8
+            //txtqty.width = 60
+            //txtqty.height = 50
             txtqty.setPadding(3, 3, 0, 3)
             tr.addView(txtqty)
 
@@ -215,10 +225,11 @@ class CurrentListActivity : AppCompatActivity() {
             txtprice.hint = "PRICE"
             txtprice.tag = "PRICE" + it.id.toString()
             txtprice.setText(it.price.toString())
-            txtprice.textSize = 12f
+            txtprice.textSize = 10f
             txtprice.setPadding(3, 3, 3, 3)
-            txtprice.width = 60
-            txtprice.height = 50
+            txtprice.width = screenWidth / 8
+            //txtprice.width = 60
+            //txtprice.height = 50
             tr.addView(txtprice)
 
             //add purchase button
@@ -227,9 +238,10 @@ class CurrentListActivity : AppCompatActivity() {
             btnpurchase.text = "PURCHASE"
             btnpurchase.textSize = 10f
             btnpurchase.tag = "P" + it.id.toString();
-            btnpurchase.width = 20
+            btnpurchase.width = screenWidth / 5
+            //btnpurchase.width = 20
 
-            btnpurchase.height = TableRow.LayoutParams.WRAP_CONTENT
+            //btnpurchase.height = TableRow.LayoutParams.WRAP_CONTENT
             tr.addView(btnpurchase)
 
             //on-click code for Purchase buttons
@@ -275,8 +287,9 @@ class CurrentListActivity : AppCompatActivity() {
             btnremove.id = it.id
             btnremove.textSize = 10f
             btnremove.tag = "R" + it.id.toString();
-            btnremove.width = 20
-            btnremove.height = TableRow.LayoutParams.WRAP_CONTENT
+            btnremove.width = screenWidth / 5
+            //btnremove.width = 20
+            //btnremove.height = TableRow.LayoutParams.WRAP_CONTENT
             tr.addView(btnremove)
 
             //on-click code for Remove buttons

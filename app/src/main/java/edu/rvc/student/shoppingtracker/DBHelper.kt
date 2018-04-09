@@ -114,7 +114,28 @@ class DBHelper(context: Context, name: String?,
 
     }
 
+    fun getHistoryDetailList(entryName: String):MutableList<ListEntry>{
+        var entry = ListEntry(0,"SKIP", 0, 0f, "NEVER")
+        var result: MutableList<ListEntry> = mutableListOf(entry)
 
+
+
+        val query = "SELECT * FROM $TABLE_HISTORYLIST WHERE ENTRYNAME = '" + entryName + "' ORDER BY $COLUMN_PURCHASEDATE DESC"
+        val db = this.writableDatabase
+        val cursor = db.rawQuery(query, null)
+        if (cursor.moveToFirst()){
+            cursor.moveToFirst()
+            entry = ListEntry(0,cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getFloat(3), cursor.getString(4))
+            result.add(entry)
+            while (cursor.moveToNext()){
+                entry = ListEntry(0,cursor.getString(1), Integer.parseInt(cursor.getString(2)), cursor.getFloat(3), cursor.getString(4))
+                result.add(entry)
+            }
+        }
+
+
+        return result
+    }
 
 
     //return first item in CurrentList (for testing purposes)

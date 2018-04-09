@@ -11,7 +11,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="43dp"
+        android:layout_marginBottom="8dp"
         android:text="History"
         android:textSize="30dp"
         android:textStyle="bold"
@@ -58,19 +58,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <TableLayout
-        android:id="@+id/tHeader"
-        android:layout_width="0dp"
-        android:layout_height="42dp"
-        android:layout_marginBottom="9dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView">
 
-    </TableLayout>
 
 
 </android.support.constraint.ConstraintLayout>

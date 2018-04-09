@@ -3,35 +3,45 @@ package edu.rvc.student.shoppingtracker
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.view.View
 import android.widget.*
+import android.util.DisplayMetrics
 
-class HistoryActivity : AppCompatActivity() {
+
+
+class HistoryDetail : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_history)
+        setContentView(R.layout.activity_history_detail)
+
+        //retrieve itemName value from HistoryActivity
+        val itemName: String = intent.getStringExtra("ItemName")
+        val heading = findViewById<TextView>(R.id.textView)
+
+        //set heading
+        heading.text = itemName
 
         var success = false
 
 
-        //retrieve history list of entries
-        val historyList = lookupList()
+        //retrieve history detail
+        val historyDetailList = lookupList(itemName)
 
-        //initialize (display) history list
-        init(historyList)
+        //initialize (display) history detail list
+        init(historyDetailList)
+
     }
 
     //returns list of all history list entries
-    fun lookupList() : MutableList<ListEntry>{
+    fun lookupList(entryName: String) : MutableList<ListEntry>{
         val dbHandler = DBHelper(this, null, null, 1)
-        val returnedList = dbHandler.getHistoryList()
+        val returnedList = dbHandler.getHistoryDetailList(entryName)
 
         //strip off junk record
         returnedList.removeAt(0)
         return returnedList
     }
+
     fun init(list : MutableList<ListEntry>){
         //get screen dimensions
         val displayMetrics = DisplayMetrics()
@@ -55,7 +65,7 @@ class HistoryActivity : AppCompatActivity() {
         var txtDate = TextView(this)
         var txtqty = TextView(this)
         var txtprice = TextView(this)
-        var btnDetail = Button(this)
+        var txtpurchasedate = TextView(this)
 
         //row index counter variable
         var counter = 0
@@ -72,52 +82,31 @@ class HistoryActivity : AppCompatActivity() {
         txtid.textSize = 14f
         tr.addView(txtid)
 
-        //add name label
-        txtid = TextView(this)
-        txtid.text = "Item"
-        txtid.textSize = 12f
-        txtid.width = screenWidth / 5
-        //txtid.width = 100
-        txtid.setPadding(3, 3, 6, 3)
-        tr.addView(txtid)
-
         //add date label
         txtid = TextView(this)
-        txtid.text = "Last"
-        txtid.textSize = 12f
-        txtid.width = screenWidth / 6
-        //txtid.width = 130
+        txtid.text = "Date"
+        txtid.textSize = 14f
+        txtid.width = screenWidth / 4
         txtid.setPadding(3, 3, 6, 3)
         tr.addView(txtid)
 
         //add qty label
         txtid = TextView(this)
-        txtid.text = "Total QTY"
-        txtid.textSize = 12f
-        txtid.width = screenWidth / 8
-        //txtid.width = 60
+        txtid.text = "QTY"
+        txtid.textSize = 14f
+        txtid.width = screenWidth / 4
         txtid.height = 60
-        txtid.setPadding(3, 3, 0, 3)
+        txtid.setPadding(20, 3, 0, 3)
         tr.addView(txtid)
 
         //add price label
         txtid = TextView(this)
-        txtid.text = "Avg Price"
-        txtid.textSize = 12f
-        txtid.width = screenWidth / 6
-        //txtid.width = 60
+        txtid.text = "Price"
+        txtid.textSize = 14f
+        txtid.width = screenWidth / 4
         txtid.height = 60
         txtid.setPadding(3, 3, 3, 3)
         tr.addView(txtid)
-
-        //add detail label
-        txtid = TextView(this)
-        txtid.text = "Detail"
-        txtid.width = screenWidth / 5
-        txtid.textSize = 12f
-        txtid.setPadding(3, 3, 30, 3)
-        tr.addView(txtid)
-
 
         //add row to table
         //tHeader.addView(tr,0)
@@ -138,22 +127,11 @@ class HistoryActivity : AppCompatActivity() {
             txtid.textSize = 10f
             tr.addView(txtid)
 
-            //add entry name
-            txtname = TextView(this)
-            txtname.text = it.entryName.toString()
-            txtname.textSize = 12f
-            txtname.width = screenWidth / 5
-            //txtname.width = 100
-            txtname.tag = "NAME" + counter.toString()
-            txtname.setPadding(3, 0, 6, 15)
-            tr.addView(txtname)
-
-            //add entry name
+            //add entry date
             txtDate = TextView(this)
             txtDate.text = it.purchasedate.toString()
-            txtDate.textSize = 12f
-            txtDate.width = screenWidth / 6
-            //txtDate.width = 130
+            txtDate.textSize = 14f
+            txtDate.width = screenWidth / 4
             txtDate.tag = "DATE" + counter.toString()
             txtDate.setPadding(3, 0, 6, 15)
             tr.addView(txtDate)
@@ -161,56 +139,25 @@ class HistoryActivity : AppCompatActivity() {
             //add qty field
             txtqty = TextView(this)
             txtqty.tag = "QTY" + counter.toString()
-            txtqty.setText(it.quantity.toString())
-            txtqty.textSize = 10f
-            txtqty.width = screenWidth / 8
-            //txtqty.width = 60
+            txtqty.setText("     " + it.quantity.toString())
+            txtqty.textSize = 12f
+            txtqty.width = screenWidth / 4
             txtqty.height = 50
-            txtqty.setPadding(3, 3, 0, 3)
+            txtqty.setPadding(20, 3, 0, 3)
             tr.addView(txtqty)
 
             //add price field
             txtprice = TextView(this)
             txtprice.tag = "PRICE" + counter.toString()
             txtprice.setText("$" + "%.2f".format(it.price))
-            txtprice.textSize = 10f
+            txtprice.textSize = 12f
             txtprice.setPadding(3, 3, 3, 3)
-            txtprice.width = screenWidth / 6
-            //txtprice.width = 60
+            txtprice.width = screenWidth / 4
             txtprice.height = 50
             tr.addView(txtprice)
-
-            //add purchase button
-            btnDetail = Button(this)
-            btnDetail.id = counter;
-            btnDetail.text = "DETAILS"
-            btnDetail.tag = txtname.text
-            btnDetail.textSize = 10f
-            btnDetail.width = screenWidth / 5
-            //btnDetail.width = 20
-
-            btnDetail.height = TableRow.LayoutParams.WRAP_CONTENT
-            tr.addView(btnDetail)
-
-            //on-click code for History Detail button
-            val btnD = tr.findViewById<Button>(counter);
-            val name = tr.findViewWithTag<TextView>("NAME" + counter)
-            btnD.setOnClickListener(){
-                val myTag = btnD.tag;
-
-                //view details on an item
-                val intent = Intent(this, HistoryDetail::class.java)
-                //send data to history detail activity
-                intent.putExtra("ItemName", myTag.toString())
-                //start history detail activity
-                startActivity(intent)
-            }
-
-
 
             ll.addView(tr,counter)
             counter++
         } //end foreach
     }
-
 }
