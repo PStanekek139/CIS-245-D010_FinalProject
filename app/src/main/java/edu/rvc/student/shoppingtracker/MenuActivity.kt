@@ -3,6 +3,7 @@ package edu.rvc.student.shoppingtracker
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.content.Intent
+import android.util.DisplayMetrics
 import android.view.View
 import android.widget.Button
 
@@ -16,6 +17,13 @@ class MenuActivity : AppCompatActivity() {
         val btnHistory = findViewById<Button>(R.id.btnHistory)
         val btnSettings = findViewById<Button>(R.id.btnSettings)
         val btnAbout = findViewById<Button>(R.id.btnAbout)
+
+        //get screen dimensions
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val screenWidth = displayMetrics.widthPixels
+
+        btnCurrentList.width = (screenWidth / 2).toInt()
 
         btnCurrentList.setOnClickListener(View.OnClickListener {
             val intent = Intent(this, CurrentListActivity::class.java)
