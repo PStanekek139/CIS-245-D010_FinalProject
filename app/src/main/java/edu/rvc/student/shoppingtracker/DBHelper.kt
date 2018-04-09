@@ -181,7 +181,7 @@ class DBHelper(context: Context, name: String?,
         values.put(COLUMN_QUANTITY, listentry.quantity)
         values.put(COLUMN_PRICE, listentry.price)
         var thisTime = currentTimeMillis()
-        values.put(COLUMN_PURCHASEDATE, DateFormat.getDateInstance().format(thisTime).toString())
+        values.put(COLUMN_PURCHASEDATE, DateFormat.getDateInstance(DateFormat.SHORT).format(thisTime).toString())
 
 
 

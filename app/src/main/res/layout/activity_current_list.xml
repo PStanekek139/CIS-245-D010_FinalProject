@@ -93,9 +93,11 @@
 
     <Button
         android:id="@+id/btnAddNew"
+
+
+
         android:layout_width="176dp"
         android:layout_height="wrap_content"
-        style="@style/AppTheme.RoundedCornerMaterialButton"
         android:layout_marginBottom="9dp"
         android:layout_marginEnd="16dp"
         android:text="Add"

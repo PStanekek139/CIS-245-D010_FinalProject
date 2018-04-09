@@ -241,6 +241,7 @@ class CurrentListActivity : AppCompatActivity() {
             btnpurchase.text = "PURCHASE"
             btnpurchase.textSize = 10f
             btnpurchase.tag = "P" + it.id.toString();
+            //btnpurchase.setBackgroundColor(Color.parseColor("#D69500"))
             btnpurchase.width = screenWidth / 5
             //btnpurchase.width = 20
 
@@ -289,7 +290,8 @@ class CurrentListActivity : AppCompatActivity() {
             btnremove.text = "REMOVE"
             btnremove.id = it.id
             btnremove.textSize = 10f
-            btnremove.tag = "R" + it.id.toString();
+            btnremove.tag = "R" + it.id.toString()
+            //btnremove.setBackgroundColor(Color.parseColor("#D69500"))
             btnremove.width = screenWidth / 5
             //btnremove.width = 20
             //btnremove.height = TableRow.LayoutParams.WRAP_CONTENT

@@ -1,6 +1,7 @@
 package edu.rvc.student.shoppingtracker
 
 import android.content.Intent
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.DisplayMetrics
@@ -185,6 +186,7 @@ class HistoryActivity : AppCompatActivity() {
             btnDetail.id = counter;
             btnDetail.text = "DETAILS"
             btnDetail.tag = txtname.text
+            //btnDetail.setBackgroundColor(Color.parseColor("#D69500"))
             btnDetail.textSize = 10f
             btnDetail.width = screenWidth / 5
             //btnDetail.width = 20
