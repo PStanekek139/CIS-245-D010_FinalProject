@@ -105,6 +105,8 @@ class CurrentListActivity : AppCompatActivity() {
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         val screenWidth = displayMetrics.widthPixels
 
+        Toast.makeText(this, "Screen Width = " + screenWidth.toString(), Toast.LENGTH_LONG).show()
+
         //bind header table layout
         //val tHeader = findViewById<TableLayout>(R.id.tHeader)
         //bind table layout
@@ -142,7 +144,13 @@ class CurrentListActivity : AppCompatActivity() {
         //add name label
         txtid = TextView(this)
         txtid.text = "Item"
-        txtid.textSize = 10f
+        if (screenWidth <= 480){
+            txtid.textSize = 10f
+        }
+        else {
+            txtid.textSize = 16f
+        }
+        //txtid.textSize = 10f
         txtid.width = screenWidth / 4
         //txtid.width = 100
         txtid.setPadding(3, 3, 6, 3)
@@ -151,7 +159,13 @@ class CurrentListActivity : AppCompatActivity() {
         //add qty label
         txtid = TextView(this)
         txtid.text = "QTY"
-        txtid.textSize = 10f
+        if (screenWidth <= 480){
+            txtid.textSize = 10f
+        }
+        else {
+            txtid.textSize = 16f
+        }
+        //txtid.textSize = 10f
         txtid.width = screenWidth / 8
         //txtid.width = 60
         txtid.setPadding(3, 3, 0, 3)
@@ -160,7 +174,13 @@ class CurrentListActivity : AppCompatActivity() {
         //add price label
         txtid = TextView(this)
         txtid.text = "Price (each)"
-        txtid.textSize = 10f
+        if (screenWidth <= 480){
+            txtid.textSize = 10f
+        }
+        else {
+            txtid.textSize = 16f
+        }
+        //txtid.textSize = 10f
         txtid.width = screenWidth / 8
         //txtid.width = 60
         //txtid.height = 60
@@ -171,7 +191,13 @@ class CurrentListActivity : AppCompatActivity() {
         txtid = TextView(this)
         txtid.text = "Purchase"
         txtid.width = screenWidth / 5
-        txtid.textSize = 10f
+        if (screenWidth <= 480){
+            txtid.textSize = 10f
+        }
+        else {
+            txtid.textSize = 16f
+        }
+        //txtid.textSize = 10f
         txtid.setPadding(3, 3, 30, 3)
         tr.addView(txtid)
 
@@ -179,7 +205,13 @@ class CurrentListActivity : AppCompatActivity() {
         txtid = TextView(this)
         txtid.text = "Remove"
         txtid.width = screenWidth / 5
-        txtid.textSize = 10f
+        if (screenWidth <= 480){
+            txtid.textSize = 10f
+        }
+        else {
+            txtid.textSize = 16f
+        }
+        //txtid.textSize = 10f
         txtid.setPadding(3, 3, 10, 3)
         tr.addView(txtid)
 
@@ -198,13 +230,27 @@ class CurrentListActivity : AppCompatActivity() {
             txtid = TextView(this)
             txtid.text = it.id.toString()
             txtid.width = 0
-            txtid.textSize = 10f
+            if (screenWidth <= 480){
+                txtid.textSize = 10f
+            }
+            else {
+                txtid.textSize = 16f
+            }
+
             tr.addView(txtid)
 
             //add entry name
             txtname = TextView(this)
             txtname.text = it.entryName.toString()
-            txtname.textSize = 10f
+            txtid.width = 0
+            if (screenWidth <= 480){
+                txtname.textSize = 10f
+            }
+            else {
+                txtname.textSize = 16f
+            }
+
+            //txtname.textSize = 10f
             txtname.width = screenWidth / 4
             //txtname.width = 100
             txtname.tag = "NAME" + it.id.toString()
@@ -214,9 +260,16 @@ class CurrentListActivity : AppCompatActivity() {
             //add qty field
             txtqty = EditText(this)
             txtqty.hint = "QTY"
+            txtqty.setSelectAllOnFocus(true)
             txtqty.tag = "QTY" + it.id.toString()
             txtqty.setText(it.quantity.toString())
-            txtqty.textSize = 10f
+            if (screenWidth <= 480){
+                txtqty.textSize = 10f
+            }
+            else {
+                txtqty.textSize = 16f
+            }
+            //txtqty.textSize = 10f
             txtqty.width = screenWidth / 8
             //txtqty.width = 60
             //txtqty.height = 50
@@ -226,9 +279,16 @@ class CurrentListActivity : AppCompatActivity() {
             //add price field
             txtprice = EditText(this)
             txtprice.hint = "PRICE"
+            txtprice.setSelectAllOnFocus(true)
             txtprice.tag = "PRICE" + it.id.toString()
             txtprice.setText(it.price.toString())
-            txtprice.textSize = 10f
+            if (screenWidth <= 480){
+                txtprice.textSize = 10f
+            }
+            else {
+                txtprice.textSize = 16f
+            }
+            //txtprice.textSize = 10f
             txtprice.setPadding(3, 3, 3, 3)
             txtprice.width = screenWidth / 8
             //txtprice.width = 60
@@ -239,7 +299,13 @@ class CurrentListActivity : AppCompatActivity() {
             btnpurchase = Button(this)
             btnpurchase.id = it.id;
             btnpurchase.text = "PURCHASE"
-            btnpurchase.textSize = 10f
+            if (screenWidth <= 480){
+                btnpurchase.textSize = 10f
+            }
+            else {
+                btnpurchase.textSize = 16f
+            }
+            //btnpurchase.textSize = 10f
             btnpurchase.tag = "P" + it.id.toString();
             //btnpurchase.setBackgroundColor(Color.parseColor("#D69500"))
             btnpurchase.width = screenWidth / 5
@@ -289,7 +355,13 @@ class CurrentListActivity : AppCompatActivity() {
             btnremove = Button (this)
             btnremove.text = "REMOVE"
             btnremove.id = it.id
-            btnremove.textSize = 10f
+            if (screenWidth <= 480){
+                btnremove.textSize = 10f
+            }
+            else {
+                btnremove.textSize = 16f
+            }
+            //btnremove.textSize = 10f
             btnremove.tag = "R" + it.id.toString()
             //btnremove.setBackgroundColor(Color.parseColor("#D69500"))
             btnremove.width = screenWidth / 5
