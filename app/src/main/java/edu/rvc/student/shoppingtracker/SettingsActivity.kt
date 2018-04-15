@@ -2,7 +2,9 @@ package edu.rvc.student.shoppingtracker
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.View
+import android.widget.Button
 import android.widget.Toast
 
 class SettingsActivity : AppCompatActivity() {
@@ -10,6 +12,29 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
+
+        val btnTest = findViewById<Button>(R.id.btnAddTestData)
+        val btnDeleteHistory = findViewById<Button>(R.id.btnReinitializeDatabase)
+
+
+        //get screen dimensions
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
+        val screenWidth = displayMetrics.widthPixels
+
+        //adjust font size based on screen width
+        if (screenWidth <= 480){
+            btnTest.textSize = 16f
+            btnDeleteHistory.textSize = 16f
+        }
+        else {
+            btnTest.textSize = 24f
+            btnDeleteHistory.textSize = 24f
+        }
+
+        //disabled in release build - only used for debugging
+        btnTest.setEnabled(false)
+        btnTest.setVisibility(View.INVISIBLE)
     }
 
     fun addTestData(view: View){

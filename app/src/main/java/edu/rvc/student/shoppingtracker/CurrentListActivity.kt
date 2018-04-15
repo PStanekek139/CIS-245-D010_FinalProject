@@ -13,6 +13,9 @@ import android.view.inputmethod.InputMethodManager
 import android.util.DisplayMetrics
 import android.widget.LinearLayout
 import android.R.attr.button
+import android.view.View.OnFocusChangeListener
+
+
 
 
 
@@ -32,6 +35,7 @@ class CurrentListActivity : AppCompatActivity() {
         val txtNewName = findViewById<EditText>(R.id.txtNewName)
         val txtNewQty = findViewById<EditText>(R.id.txtNewQty)
         var success = false
+
 
 
         //retrieve current list of entries
@@ -76,6 +80,8 @@ class CurrentListActivity : AppCompatActivity() {
 
 
 
+        hideKeyboard()
+
     }
 
     fun hideKeyboard() {
@@ -105,7 +111,7 @@ class CurrentListActivity : AppCompatActivity() {
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         val screenWidth = displayMetrics.widthPixels
 
-        Toast.makeText(this, "Screen Width = " + screenWidth.toString(), Toast.LENGTH_LONG).show()
+        //Toast.makeText(this, "Screen Width = " + screenWidth.toString(), Toast.LENGTH_LONG).show()
 
         //bind header table layout
         //val tHeader = findViewById<TableLayout>(R.id.tHeader)
@@ -386,6 +392,7 @@ class CurrentListActivity : AppCompatActivity() {
             ll.addView(tr,counter)
             counter++
         } //end foreach
+        hideKeyboard()
     }
 
 

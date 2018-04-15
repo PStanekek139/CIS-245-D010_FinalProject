@@ -38,7 +38,7 @@
 
     <Button
         android:id="@+id/btnStart"
-        style="@style/AppTheme.RoundedCornerMaterialButton"
+        style="@style/ButtonStyleMenu"
         android:background="#D69500"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

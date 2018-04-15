@@ -23,6 +23,20 @@ class MenuActivity : AppCompatActivity() {
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         val screenWidth = displayMetrics.widthPixels
 
+        //adjust font size based on screen width
+        if (screenWidth <= 480){
+            btnCurrentList.textSize = 16f
+            btnHistory.textSize = 16f
+            btnSettings.textSize = 16f
+            btnAbout.textSize = 16f
+        }
+        else {
+            btnCurrentList.textSize = 24f
+            btnHistory.textSize = 24f
+            btnSettings.textSize = 24f
+            btnAbout.textSize = 24f
+        }
+
         btnCurrentList.width = (screenWidth / 2).toInt()
 
         btnCurrentList.setOnClickListener(View.OnClickListener {

@@ -76,7 +76,13 @@ class HistoryActivity : AppCompatActivity() {
         //add name label
         txtid = TextView(this)
         txtid.text = "Item"
-        txtid.textSize = 12f
+        if (screenWidth <= 480){
+            txtid.textSize = 12f
+        }
+        else {
+            txtid.textSize = 16f
+        }
+        //txtid.textSize = 12f
         txtid.width = screenWidth / 5
         //txtid.width = 100
         txtid.setPadding(3, 3, 6, 3)
@@ -85,7 +91,13 @@ class HistoryActivity : AppCompatActivity() {
         //add date label
         txtid = TextView(this)
         txtid.text = "Last"
-        txtid.textSize = 12f
+        if (screenWidth <= 480){
+            txtid.textSize = 12f
+        }
+        else {
+            txtid.textSize = 16f
+        }
+        //txtid.textSize = 12f
         txtid.width = screenWidth / 6
         //txtid.width = 130
         txtid.setPadding(3, 3, 6, 3)
@@ -94,7 +106,13 @@ class HistoryActivity : AppCompatActivity() {
         //add qty label
         txtid = TextView(this)
         txtid.text = "Total QTY"
-        txtid.textSize = 12f
+        if (screenWidth <= 480){
+            txtid.textSize = 12f
+        }
+        else {
+            txtid.textSize = 16f
+        }
+        //txtid.textSize = 12f
         txtid.width = screenWidth / 8
         //txtid.width = 60
         txtid.height = 60
@@ -104,7 +122,13 @@ class HistoryActivity : AppCompatActivity() {
         //add price label
         txtid = TextView(this)
         txtid.text = "Avg Price"
-        txtid.textSize = 12f
+        if (screenWidth <= 480){
+            txtid.textSize = 12f
+        }
+        else {
+            txtid.textSize = 16f
+        }
+        //txtid.textSize = 12f
         txtid.width = screenWidth / 6
         //txtid.width = 60
         txtid.height = 60
@@ -115,7 +139,13 @@ class HistoryActivity : AppCompatActivity() {
         txtid = TextView(this)
         txtid.text = "Detail"
         txtid.width = screenWidth / 5
-        txtid.textSize = 12f
+        if (screenWidth <= 480){
+            txtid.textSize = 12f
+        }
+        else {
+            txtid.textSize = 16f
+        }
+        //txtid.textSize = 12f
         txtid.setPadding(3, 3, 30, 3)
         tr.addView(txtid)
 
@@ -142,7 +172,13 @@ class HistoryActivity : AppCompatActivity() {
             //add entry name
             txtname = TextView(this)
             txtname.text = it.entryName.toString()
-            txtname.textSize = 12f
+            if (screenWidth <= 480){
+                txtname.textSize = 12f
+            }
+            else {
+                txtname.textSize = 16f
+            }
+            //txtname.textSize = 12f
             txtname.width = screenWidth / 5
             //txtname.width = 100
             txtname.tag = "NAME" + counter.toString()
@@ -152,7 +188,13 @@ class HistoryActivity : AppCompatActivity() {
             //add entry name
             txtDate = TextView(this)
             txtDate.text = it.purchasedate.toString()
-            txtDate.textSize = 12f
+            if (screenWidth <= 480){
+                txtDate.textSize = 12f
+            }
+            else {
+                txtDate.textSize = 16f
+            }
+            //txtDate.textSize = 12f
             txtDate.width = screenWidth / 6
             //txtDate.width = 130
             txtDate.tag = "DATE" + counter.toString()
@@ -163,7 +205,13 @@ class HistoryActivity : AppCompatActivity() {
             txtqty = TextView(this)
             txtqty.tag = "QTY" + counter.toString()
             txtqty.setText(it.quantity.toString())
-            txtqty.textSize = 10f
+            if (screenWidth <= 480){
+                txtqty.textSize = 10f
+            }
+            else {
+                txtqty.textSize = 16f
+            }
+            //txtqty.textSize = 10f
             txtqty.width = screenWidth / 8
             //txtqty.width = 60
             txtqty.height = 50
@@ -174,7 +222,13 @@ class HistoryActivity : AppCompatActivity() {
             txtprice = TextView(this)
             txtprice.tag = "PRICE" + counter.toString()
             txtprice.setText("$" + "%.2f".format(it.price))
-            txtprice.textSize = 10f
+            if (screenWidth <= 480){
+                txtprice.textSize = 10f
+            }
+            else {
+                txtprice.textSize = 16f
+            }
+            //txtprice.textSize = 10f
             txtprice.setPadding(3, 3, 3, 3)
             txtprice.width = screenWidth / 6
             //txtprice.width = 60
@@ -187,6 +241,12 @@ class HistoryActivity : AppCompatActivity() {
             btnDetail.text = "DETAILS"
             btnDetail.tag = txtname.text
             //btnDetail.setBackgroundColor(Color.parseColor("#D69500"))
+            if (screenWidth <= 480){
+                btnDetail.textSize = 10f
+            }
+            else {
+                btnDetail.textSize = 16f
+            }
             btnDetail.textSize = 10f
             btnDetail.width = screenWidth / 5
             //btnDetail.width = 20
