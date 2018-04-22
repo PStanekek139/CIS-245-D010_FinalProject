@@ -85,8 +85,11 @@ class HistoryDetail : AppCompatActivity() {
         //add date label
         txtid = TextView(this)
         txtid.text = "Date"
-        if (screenWidth <= 480){
+        if (screenWidth == 480){
             txtid.textSize = 14f
+        }
+        else if (screenWidth < 480){
+            txtid.textSize = 12f
         }
         else {
             txtid.textSize = 18f
@@ -99,8 +102,11 @@ class HistoryDetail : AppCompatActivity() {
         //add qty label
         txtid = TextView(this)
         txtid.text = "QTY"
-        if (screenWidth <= 480){
+        if (screenWidth == 480){
             txtid.textSize = 14f
+        }
+        else if (screenWidth < 480){
+            txtid.textSize = 12f
         }
         else {
             txtid.textSize = 18f
@@ -114,8 +120,11 @@ class HistoryDetail : AppCompatActivity() {
         //add price label
         txtid = TextView(this)
         txtid.text = "Price"
-        if (screenWidth <= 480){
+        if (screenWidth == 480){
             txtid.textSize = 14f
+        }
+        else if (screenWidth < 480){
+            txtid.textSize = 12f
         }
         else {
             txtid.textSize = 18f
@@ -142,8 +151,11 @@ class HistoryDetail : AppCompatActivity() {
             txtid = TextView(this)
             txtid.text = counter.toString()
             txtid.width = 0
-            if (screenWidth <= 480){
+            if (screenWidth == 480){
                 txtid.textSize = 10f
+            }
+            else if (screenWidth < 480){
+                txtid.textSize = 8f
             }
             else {
                 txtid.textSize = 16f
@@ -154,8 +166,11 @@ class HistoryDetail : AppCompatActivity() {
             //add entry date
             txtDate = TextView(this)
             txtDate.text = it.purchasedate.toString()
-            if (screenWidth <= 480){
+            if (screenWidth == 480){
                 txtDate.textSize = 14f
+            }
+            else if (screenWidth < 480){
+                txtDate.textSize = 12f
             }
             else {
                 txtDate.textSize = 18f
@@ -170,8 +185,11 @@ class HistoryDetail : AppCompatActivity() {
             txtqty = TextView(this)
             txtqty.tag = "QTY" + counter.toString()
             txtqty.setText("     " + it.quantity.toString())
-            if (screenWidth <= 480){
+            if (screenWidth == 480){
                 txtqty.textSize = 12f
+            }
+            else if (screenWidth < 480){
+                txtqty.textSize = 10f
             }
             else {
                 txtqty.textSize = 18f
@@ -186,8 +204,11 @@ class HistoryDetail : AppCompatActivity() {
             txtprice = TextView(this)
             txtprice.tag = "PRICE" + counter.toString()
             txtprice.setText("$" + "%.2f".format(it.price))
-            if (screenWidth <= 480){
+            if (screenWidth == 480){
                 txtprice.textSize = 12f
+            }
+            else if (screenWidth < 480){
+                txtprice.textSize = 10f
             }
             else {
                 txtprice.textSize = 18f

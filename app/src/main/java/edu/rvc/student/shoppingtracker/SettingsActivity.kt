@@ -23,9 +23,13 @@ class SettingsActivity : AppCompatActivity() {
         val screenWidth = displayMetrics.widthPixels
 
         //adjust font size based on screen width
-        if (screenWidth <= 480){
+        if (screenWidth == 480){
             btnTest.textSize = 16f
             btnDeleteHistory.textSize = 16f
+        }
+        else if (screenWidth < 480){
+            btnTest.textSize = 14f
+            btnDeleteHistory.textSize = 14f
         }
         else {
             btnTest.textSize = 24f

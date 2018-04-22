@@ -150,8 +150,11 @@ class CurrentListActivity : AppCompatActivity() {
         //add name label
         txtid = TextView(this)
         txtid.text = "Item"
-        if (screenWidth <= 480){
+        if (screenWidth == 480){
             txtid.textSize = 10f
+        }
+        else if (screenWidth < 480){
+            txtid.textSize = 8f
         }
         else {
             txtid.textSize = 16f
@@ -165,8 +168,11 @@ class CurrentListActivity : AppCompatActivity() {
         //add qty label
         txtid = TextView(this)
         txtid.text = "QTY"
-        if (screenWidth <= 480){
+        if (screenWidth == 480){
             txtid.textSize = 10f
+        }
+        else if (screenWidth < 480){
+            txtid.textSize = 8f
         }
         else {
             txtid.textSize = 16f
@@ -180,8 +186,11 @@ class CurrentListActivity : AppCompatActivity() {
         //add price label
         txtid = TextView(this)
         txtid.text = "Price (each)"
-        if (screenWidth <= 480){
+        if (screenWidth == 480){
             txtid.textSize = 10f
+        }
+        else if (screenWidth < 480){
+            txtid.textSize = 8f
         }
         else {
             txtid.textSize = 16f
@@ -197,8 +206,11 @@ class CurrentListActivity : AppCompatActivity() {
         txtid = TextView(this)
         txtid.text = "Purchase"
         txtid.width = screenWidth / 5
-        if (screenWidth <= 480){
+        if (screenWidth == 480){
             txtid.textSize = 10f
+        }
+        else if (screenWidth < 480){
+            txtid.textSize = 8f
         }
         else {
             txtid.textSize = 16f
@@ -211,8 +223,11 @@ class CurrentListActivity : AppCompatActivity() {
         txtid = TextView(this)
         txtid.text = "Remove"
         txtid.width = screenWidth / 5
-        if (screenWidth <= 480){
+        if (screenWidth == 480){
             txtid.textSize = 10f
+        }
+        else if (screenWidth < 480){
+            txtid.textSize = 8f
         }
         else {
             txtid.textSize = 16f
@@ -236,8 +251,11 @@ class CurrentListActivity : AppCompatActivity() {
             txtid = TextView(this)
             txtid.text = it.id.toString()
             txtid.width = 0
-            if (screenWidth <= 480){
+            if (screenWidth == 480){
                 txtid.textSize = 10f
+            }
+            else if (screenWidth < 480){
+                txtid.textSize = 8f
             }
             else {
                 txtid.textSize = 16f
@@ -249,8 +267,11 @@ class CurrentListActivity : AppCompatActivity() {
             txtname = TextView(this)
             txtname.text = it.entryName.toString()
             txtid.width = 0
-            if (screenWidth <= 480){
+            if (screenWidth == 480){
                 txtname.textSize = 10f
+            }
+            else if (screenWidth < 480){
+                txtname.textSize = 8f
             }
             else {
                 txtname.textSize = 16f
@@ -269,8 +290,11 @@ class CurrentListActivity : AppCompatActivity() {
             txtqty.setSelectAllOnFocus(true)
             txtqty.tag = "QTY" + it.id.toString()
             txtqty.setText(it.quantity.toString())
-            if (screenWidth <= 480){
+            if (screenWidth == 480){
                 txtqty.textSize = 10f
+            }
+            else if (screenWidth < 480){
+                txtqty.textSize = 8f
             }
             else {
                 txtqty.textSize = 16f
@@ -288,8 +312,11 @@ class CurrentListActivity : AppCompatActivity() {
             txtprice.setSelectAllOnFocus(true)
             txtprice.tag = "PRICE" + it.id.toString()
             txtprice.setText(it.price.toString())
-            if (screenWidth <= 480){
+            if (screenWidth == 480){
                 txtprice.textSize = 10f
+            }
+            else if (screenWidth < 480){
+                txtprice.textSize = 8f
             }
             else {
                 txtprice.textSize = 16f
@@ -305,8 +332,11 @@ class CurrentListActivity : AppCompatActivity() {
             btnpurchase = Button(this)
             btnpurchase.id = it.id;
             btnpurchase.text = "PURCHASE"
-            if (screenWidth <= 480){
+            if (screenWidth == 480){
                 btnpurchase.textSize = 10f
+            }
+            else if (screenWidth < 480){
+                btnpurchase.textSize = 8f
             }
             else {
                 btnpurchase.textSize = 16f
@@ -361,8 +391,11 @@ class CurrentListActivity : AppCompatActivity() {
             btnremove = Button (this)
             btnremove.text = "REMOVE"
             btnremove.id = it.id
-            if (screenWidth <= 480){
+            if (screenWidth == 480){
                 btnremove.textSize = 10f
+            }
+            else if (screenWidth < 480){
+                btnremove.textSize = 8f
             }
             else {
                 btnremove.textSize = 16f

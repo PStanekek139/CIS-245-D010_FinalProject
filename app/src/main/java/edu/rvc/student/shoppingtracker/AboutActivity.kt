@@ -26,8 +26,11 @@ class AboutActivity : AppCompatActivity() {
         windowManager.defaultDisplay.getMetrics(displayMetrics)
         val screenWidth = displayMetrics.widthPixels
 
-        if (screenWidth <= 480){
+        if (screenWidth == 480){
             txtViewAbout.textSize = 12f
+        }
+        else if (screenWidth < 480){
+            txtViewAbout.textSize = 10f
         }
         else {
             txtViewAbout.textSize = 24f

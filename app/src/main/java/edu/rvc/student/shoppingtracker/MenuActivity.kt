@@ -24,11 +24,17 @@ class MenuActivity : AppCompatActivity() {
         val screenWidth = displayMetrics.widthPixels
 
         //adjust font size based on screen width
-        if (screenWidth <= 480){
+        if (screenWidth == 480){
             btnCurrentList.textSize = 16f
             btnHistory.textSize = 16f
             btnSettings.textSize = 16f
             btnAbout.textSize = 16f
+        }
+        else if (screenWidth < 480) {
+            btnCurrentList.textSize = 14f
+            btnHistory.textSize = 14f
+            btnSettings.textSize = 14f
+            btnAbout.textSize = 14f
         }
         else {
             btnCurrentList.textSize = 24f
